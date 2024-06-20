@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const element = document.querySelector("[data-v-40580160]");
+      element.style.position = "relative";
+      element.innerHTML +=
+        '<div id="animatedText" style="position: absolute; z-index: 9999; white-space: nowrap; font-size: 24px;"></div>';
+      const animatedText = document.getElementById("animatedText");
+      const text =
+        "¡CELEBRA EL MES DEL ORGULLO CON TU 2x1 EN PIZZAS! CÓDIGO: 2x1PRIDE";
+
+      function getRandomColor() {
+        const letters = "0123456789ABCDEF";
+        let color = "#";
+        for (let i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+      text.split("").forEach((char) => {
+        const span = document.createElement("span");
+        span.style.color = getRandomColor();
+        span.style.fontFamily = "Garamond, serif";
+        span.style.fontStyle = "italic";
+        span.style.fontWeight = "bold";
+        span.innerText = char;
+        animatedText.appendChild(span);
+      });
+
+      function createActionButton(href, text) {
+        const button = document.createElement("a");
+        button.href = href;
+        button.style.backgroundColor = "green";
+        button.style.color = "white";
+        button.style.fontWeight = "bold";
+        button.style.padding = "10px 20px";
+        button.style.borderRadius = "5px";
+        button.style.position = "absolute";
+        button.style.top = "50%";
+        button.style.transform = "translateY(-50%)";
+        button.style.zIndex = 9999;
+        button.style.textDecoration = "none";
+        button.innerText = text;
+        return button;
+      }
+
+      function addActionButton() {
+        const targetDiv = document.querySelector("[data-v-0dc0959e]");
+        if (targetDiv) {
+          const button1 = createActionButton(
+            "https://pizzageorge.last.shop",
+            "Ir a pizza George/ cambia de idioma con este botón"
+          );
+          button1.style.left = "50%";
+          button1.style.transform += " translateX(-50%)";
+          targetDiv.appendChild(button1);
+
+          const button2 = createActionButton(
+            "https://bookings.last.app/a4a5fb99-e362-4808-8828-fae9e654a52f/booking",
+            "Reservas"
+          );
+          button2.style.right = "1%";
+          targetDiv.appendChild(button2);
+        }
+      }
+      function vipPin() {
+        const vipDiv = document.querySelector("[data-v-7f6217b3]");
+        if (vipDiv) {
+          const vipText = document.createElement("div");
+          vipText.innerText = "V.I.P";
+          vipText.style.color = "gold";
+          vipText.style.fontSize = "24px";
+          vipText.style.fontWeight = "bold";
+          vipText.style.position = "absolute";
+          vipText.style.top = "10px";
+          vipText.style.right = "10px";
+          vipText.style.backgroundColor = "gray";
+          vipText.style.zIndex = 9999;
+          vipDiv.appendChild(vipText);
+        }
+      }
+      vipPin();
+
+      addActionButton();
+
+      let counter = 0;
+      const step = 1;
+      const interval = 7;
+
+      function getContainerWidth() {
+        return element.clientWidth;
+      }
+
+      function moveText() {
+        const containerWidth = getContainerWidth();
+        const textWidth = animatedText.offsetWidth;
+        counter += step;
+        if (counter >= textWidth) {
+          counter = -containerWidth;
+        }
+        animatedText.style.transform = `translateX(${-counter}px)`;
+      }
+
+      setInterval(moveText, interval);
+    </script>
+  </body>
+</html>
